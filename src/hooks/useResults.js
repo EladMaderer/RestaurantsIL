@@ -14,7 +14,7 @@ export const useResults = () => {
     }
   }
   useEffect(() => {
-    searchApi('hummus');
+    searchApi('fish');
   }, []);
 
   return {searchApi, results};

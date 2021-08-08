@@ -5,7 +5,7 @@ const ResultsDetail = ({ result }) => {
     return (
         <View style={styles.container}>
             <Image style={styles.imageStyle} source={{ uri: result.image_url }} />
-            <Text style={styles.textStyle}>{result.name}</Text>
+            <Text numberOfLines={1} ellipsizeMode='tail' style={styles.textStyle}>{result.name}</Text>
             <View style={styles.bottomLine}>
                 <Text style={styles.bottomLineText}>{result.rating} Stars, </Text>
                 <Text style={styles.bottomLineText}>{result.review_count} Reviews</Text>
@@ -17,7 +17,8 @@ const ResultsDetail = ({ result }) => {
 const styles = StyleSheet.create({
     container: {
         marginRight: 20,
-        marginTop: 6
+        marginTop: 6,
+        width: 250,
     },
     textStyle: {
         fontWeight: 'bold',
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
         height: 150,
     },
     bottomLine: {
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     bottomLineText: {
         color: '#bababa',
