@@ -1,1 +1,1 @@
-# Restaurants in Israel!
+# Restaurants for Israelis in America!
