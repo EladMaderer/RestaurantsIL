@@ -3,13 +3,16 @@ import { yelp } from '../api/yelp';
 
 export const useResults = () => {
   const [results, setResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const searchApi = async (term, location = 'San Jose') => {
+    setIsLoading(true);
     try {
       const res = await yelp(`search?limit=50&term=${term}&location=${location}`);
-      console.log(res.businesses);
       setResults(res.businesses);
+      setIsLoading(false);
     } catch (e) {
+      setIsLoading(false);
       console.log(e);
     }
   }
@@ -17,5 +20,5 @@ export const useResults = () => {
     searchApi('fish');
   }, []);
 
-  return {searchApi, results};
+  return {searchApi, results, isLoading};
 }
