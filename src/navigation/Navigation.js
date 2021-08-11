@@ -9,7 +9,7 @@ const Navigation = () => {
   return (
   <NavigationContainer>
     <Stack.Navigator>
-      <Stack.Screen name="SearchScreen" component={SearchScreen} />
+      <Stack.Screen name="Search Restaurants" component={SearchScreen} />
     </Stack.Navigator>
   </NavigationContainer>
   )
