@@ -1,24 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { yelp } from '../api/yelp';
+import React, {useState, useEffect} from 'react';
+import {yelp} from '../api/yelp';
 
 export const useResults = () => {
-  const [results, setResults] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+    const [results, setResults] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
-  const searchApi = async (term, location = 'San Jose') => {
-    setIsLoading(true);
-    try {
-      const res = await yelp(`search?limit=50&term=${term}&location=${location}`);
-      setResults(res.businesses);
-      setIsLoading(false);
-    } catch (e) {
-      setIsLoading(false);
-      console.log(e);
+    const LOCATION = 'San Jose';
+
+    const searchApi = async (term, location = LOCATION) => {
+        setIsLoading(true);
+        try {
+            const res = await yelp(`search?limit=50&term=${term}&location=${location}`);
+            setResults(res.businesses);
+            setIsLoading(false);
+        } catch (e) {
+            setIsLoading(false);
+            console.log(e);
+        }
     }
-  }
-  useEffect(() => {
-    searchApi('fish');
-  }, []);
+    useEffect(() => {
+        searchApi('fish');
+    }, []);
 
-  return {searchApi, results, isLoading};
+    return {searchApi, results, isLoading};
+}
+
+export const useGetRestaurant = () => {
+    const [results, setResults] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const findRestaurantApi = async id => {
+        setIsLoading(true);
+        try {
+            const res = await yelp(id);
+            setResults(res);
+            setIsLoading(false);
+        } catch (e) {
+            setIsLoading(false);
+            console.log(e);
+        }
+    }
+    return {findRestaurantApi, results, isLoading};
 }
