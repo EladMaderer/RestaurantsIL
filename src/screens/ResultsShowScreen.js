@@ -1,14 +1,15 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, View, FlatList, Image, ActivityIndicator} from 'react-native';
+import {StyleSheet, Text, View, FlatList, Image, ActivityIndicator, Dimensions} from 'react-native';
 import {SliderBox} from 'react-native-image-slider-box';
 import {Entypo} from '@expo/vector-icons';
 import {useGetRestaurant} from '../hooks/useResults';
 import {globalStyles} from '../utilities/globalStyles';
+import MapView from '../components/MapView';
 
 const ResultsShow = ({route}) => {
     const {findRestaurantApi, results, isLoading} = useGetRestaurant();
-    const {name, id} = route.params;
-    const {photos, categories} = results;
+    const {id} = route.params;
+    const {photos, categories, coordinates, name, location} = results;
     useEffect(() => {
         findRestaurantApi(id);
     }, []);
@@ -41,9 +42,15 @@ const ResultsShow = ({route}) => {
                             borderRadius: 15,
                         }}
                     />
-                    <View style={{alignItems: 'center', marginTop: 15, paddingHorizontal: 8}}>
+                    <View style={{alignItems: 'center', marginVertical: 15, paddingHorizontal: 8}}>
                         <Text style={{textAlign: 'center'}}>{renderCategories()}</Text>
                     </View>
+                    <MapView
+                        latitude={coordinates.latitude}
+                        longitude={coordinates.longitude}
+                        name={name}
+                        location={location}
+                    />
                 </>
             }
         </View>

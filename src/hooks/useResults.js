@@ -5,7 +5,7 @@ export const useResults = () => {
     const [results, setResults] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    const LOCATION = 'San Jose';
+    const LOCATION = 'California';
 
     const searchApi = async (term, location = LOCATION) => {
         setIsLoading(true);
