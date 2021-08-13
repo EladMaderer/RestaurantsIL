@@ -4,13 +4,13 @@ import {useNavigation} from '@react-navigation/native';
 import ResultsDetail from './ResultsDetail';
 
 const ResultsList = ({title, results}) => {
+    if (!results.length) return null;
     const navigation = useNavigation();
     return <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
         <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            ListEmptyComponent={() => <Text>No results found.</Text>}
             keyExtractor={item => item.id}
             data={results}
             renderItem={({item}) => {
