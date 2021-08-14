@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, Dimensions, TouchableOpacity} from 'react-native';
+import {View, Text, Dimensions, TouchableOpacity, StyleSheet} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {AntDesign} from '@expo/vector-icons';
 
@@ -7,10 +7,10 @@ export default ({latitude, longitude, name, location}) => {
     const windowWidth = Dimensions.get('window').width;
     const [showMap, setShowMap] = useState(false);
     return (
-        <View style={{alignItems: 'center'}}>
-            <View style={{marginBottom: 10, justifyContent: 'center'}}>
+        <View style={styles.container}>
+            <View style={styles.button}>
                 <TouchableOpacity onPress={() => setShowMap(!showMap)}>
-                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View style={styles.subButton}>
                     <Text style={{fontWeight: 'bold'}}>
                         {!showMap ? 'Show' : 'Hide'} map
                     </Text>
@@ -20,7 +20,7 @@ export default ({latitude, longitude, name, location}) => {
             </View>
             {showMap &&
             <MapView
-                style={{width: windowWidth, height: 350}}
+                style={styles.mapView}
                 initialRegion={{
                     latitude,
                     longitude,
@@ -41,3 +41,21 @@ export default ({latitude, longitude, name, location}) => {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        alignItems: 'center'
+    },
+    button: {
+        marginBottom: 10,
+        justifyContent: 'center'
+    },
+    subButton: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    mapView: {
+        width: Dimensions.get('window').width,
+        height: 350
+    }
+});

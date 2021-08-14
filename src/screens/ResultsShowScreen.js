@@ -1,13 +1,15 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, View, FlatList, Image, ActivityIndicator, Dimensions} from 'react-native';
+import {StyleSheet, Text, View, ActivityIndicator, ScrollView, Dimensions} from 'react-native';
 import {SliderBox} from 'react-native-image-slider-box';
 import {Entypo} from '@expo/vector-icons';
 import {useGetRestaurant} from '../hooks/useResults';
 import {globalStyles} from '../utilities/globalStyles';
 import MapView from '../components/MapView';
+import Reviews from "../components/Reviews";
 
 const ResultsShow = ({route}) => {
-    const {findRestaurantApi, results, isLoading} = useGetRestaurant();
+    const screenHeight = Dimensions.get('window').height;
+    const {findRestaurantApi, results, reviews, isLoading} = useGetRestaurant();
     const {id} = route.params;
     const {photos, categories, coordinates, name, location} = results;
     useEffect(() => {
@@ -24,10 +26,13 @@ const ResultsShow = ({route}) => {
     });
 
     return (
-        <View style={styles.container}>
-            {isLoading ? <View style={globalStyles.centerView}>
+        <View style={globalStyles.centerView}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+            {isLoading ?
+                <View style={{height: screenHeight, justifyContent: 'center'}}>
                     <ActivityIndicator color="#0000ff" size='large'/>
-                </View> :
+                </View>
+                 :
                 <>
                     <SliderBox
                         images={photos}
@@ -51,16 +56,15 @@ const ResultsShow = ({route}) => {
                         name={name}
                         location={location}
                     />
+                    <Reviews reviews={reviews} />
                 </>
             }
+        </ScrollView>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
     textBig: {
         fontSize: 20,
         fontWeight: 'bold'

@@ -27,19 +27,23 @@ export const useResults = () => {
 
 export const useGetRestaurant = () => {
     const [results, setResults] = useState([]);
+    const [reviews, setReviews] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     const findRestaurantApi = async id => {
         setIsLoading(true);
         try {
-            const res = await yelp(id);
-            setResults(res);
-            console.log(res);
+            const RestaurantRes = await yelp(id);
+            const reviewsRes = await yelp(`${id}/reviews`);
+            setResults(RestaurantRes);
+            setReviews(reviewsRes.reviews);
+            // console.log(RestaurantRes);
+            // console.log(reviewsRes);
             setIsLoading(false);
         } catch (e) {
             setIsLoading(false);
             console.log(e);
         }
     }
-    return {findRestaurantApi, results, isLoading};
+    return {findRestaurantApi, results, reviews, isLoading};
 }
