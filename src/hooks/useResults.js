@@ -37,8 +37,6 @@ export const useGetRestaurant = () => {
             const reviewsRes = await yelp(`${id}/reviews`);
             setResults(RestaurantRes);
             setReviews(reviewsRes.reviews);
-            // console.log(RestaurantRes);
-            // console.log(reviewsRes);
             setIsLoading(false);
         } catch (e) {
             setIsLoading(false);

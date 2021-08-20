@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Navigation from './src/navigation/Navigation';
 
 export default function App() {
-  
+
   return (
     <View style={styles.container}>
       <Navigation />
@@ -14,5 +14,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
+  }
 });
